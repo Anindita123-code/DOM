@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rendering a Google Map</title>
+    <style>
+        #map {
+            height: 75%;
+            width: 50%;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="map">Show the map here</div>
+ 
+    <script src="https://unpkg.com/@google/markerclustererplus@5.1.0/dist/markerclustererplus.min.js"></script>
+ 
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ9604XwxxZdGXZp4aVTpVktpxhB6Oyec&callback=initMap"></script>
+    
+    <script>
+    let map;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 8
+        });
+        var labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        var locations = [
+            {lat: 22.5499978, lng: 88.333332}
+            ,{lat: 12.9716, lng: 77.5946}
+            ,{lat: 19.0760, lng: 72.8777}
+        ];
+        var markers = locations.map(function(location, i) {
+            return new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+            });
+        });
+
+        var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    }
+
+    
+
+    </script>
+</body>
+</html>
